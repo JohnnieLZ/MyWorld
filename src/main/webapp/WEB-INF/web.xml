@@ -3,5 +3,9 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <!-- 设置登陆访问地址 -->
+  <welcome-file-list>
+    <welcome-file>/page/login/login.html</welcome-file>
+  </welcome-file-list>
+
 </web-app>
