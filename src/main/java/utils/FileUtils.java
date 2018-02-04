@@ -1,15 +1,31 @@
-package com.PL.FileIOUtils;
+package utils;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+
 public class FileUtils {
 
+
+    private JdbcTemplate jdbcTemplate;
+
+    {
+        jdbcTemplate = new JdbcTemplate();
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl("jdbc:oracle:thin:@172.16.21.22:1521:orcl");
+        basicDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+        basicDataSource.setUsername("dbbx");
+        basicDataSource.setPassword("dbbxdb");
+        jdbcTemplate.setDataSource(basicDataSource);
+    }
     public static void main(String[] args) {
         FileUtils utils = new FileUtils();
-        System.out.println("--------------对比开始----------------");
+        System.out.println("--------------开始----------------");
 //        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/Temp/BUSI_FUND_DEFRAY.txt");
 //        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt");
 //        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt");
@@ -20,16 +36,18 @@ public class FileUtils {
 //        System.out.println(hcclrq);
 //        utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "2017-11-29");
 //        utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt", "2017-11-29");
-        utils.deleteFileRepeatData("/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/deleteData.txt", "/Users/johnnie/Documents/BUSI_HOSP_CHARGE.txt");
-        System.out.println("--------------对比结束----------------");
+//        utils.deleteFileRepeatData("/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/deleteData.txt", "/Users/johnnie/Documents/BUSI_HOSP_CHARGE.txt");
+        utils.addDataFromReadFile("/Users/johnnie/Documents/Temp/门诊细项.sql","/Users/johnnie/Documents/TempFiles/门诊细项.sql");
+        utils.addDataFromReadFile("/Users/johnnie/Documents/Temp/住院细线.sql","/Users/johnnie/Documents/TempFiles/住院细线.sql");
+        System.out.println("--------------结束----------------");
     }
 
-    private FileInputStream in = null;
-    private InputStreamReader is = null;
-    private BufferedReader reader = null;
-    private FileOutputStream fos = null;
-    private OutputStreamWriter osw = null;
-    private BufferedWriter writer = null;
+    private static FileInputStream in = null;
+    private static InputStreamReader is = null;
+    private static BufferedReader reader = null;
+    private static FileOutputStream fos = null;
+    private static OutputStreamWriter osw = null;
+    private static BufferedWriter writer = null;
 
     /**
      * 读文件中数据返回一个List list大小对应文件行数
@@ -37,7 +55,7 @@ public class FileUtils {
      * @param filePath
      * @return
      */
-    public List<String> readFileData(String filePath) {
+    public static List<String> readFileData(String filePath) {
 
         List<String> data = new ArrayList<String>();
         try {
@@ -56,7 +74,6 @@ public class FileUtils {
                     } else {
                         break;
                     }
-
                 }
             }
         } catch (FileNotFoundException e) {
@@ -232,5 +249,62 @@ public class FileUtils {
                 }
             }
         }
+    }
+
+
+    public void addDataFromReadFile(String filePath,String outFilePath){
+        List<String> datas = readFileData(filePath);
+        HashSet<String> set = new HashSet<String>();
+        try {
+            fos = new FileOutputStream(outFilePath);
+            osw = new OutputStreamWriter(fos);
+            writer = new BufferedWriter(osw);
+
+            for (int i = 0; i < datas.size(); i++) {
+                String data = datas.get(i);
+                String [] s = data.split("values");
+                String [] values = s[1].split(",");
+                String fpid = values[1];
+//                String ybjylsh = jdbcTemplate.queryForObject("select ybjylsh from tb_lpfpxx where fpid = "+fpid,String.class);
+//                data = data.replace(fpid,"(select fpid from tb_lpfpxx where ybjylsh = '"+ybjylsh+"')");
+                data = "delete from tb_fpxxfyxx where fpid = "+fpid+";";
+                set.add(data);
+            }
+            for (String d : set) {
+                writer.write(d+"\n");
+            }
+            writer.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
     }
 }

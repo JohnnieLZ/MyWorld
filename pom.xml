@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>P.L.Johnnie</groupId>
-  <artifactId>MyWorld</artifactId>
+  <artifactId>PublicWelfarePlatform</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>MyWorld Maven Webapp</name>
+  <name>PublicWelfarePlatform Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
     <!-- 统一源码的编码方式 -->
@@ -17,7 +17,7 @@
   </properties>
 
   <build>
-    <finalName>MyWorld</finalName>
+    <finalName>PublicWelfarePlatform</finalName>
     <defaultGoal>compile</defaultGoal>
     <plugins>
       <plugin>
@@ -30,34 +30,35 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-      <!--
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.5</version>
-          <configuration>
-              <source>1.6</source>
-              <target>1.6</target>
-              <encoding>UTF-8</encoding>
-          </configuration>
-          <goals>source</goals>
-      </plugin> -->
+
 
       <!--<plugin>-->
-        <!--<artifactId>maven-source-plugin</artifactId>-->
-        <!--<version>2.4</version>-->
-        <!--<configuration>-->
-          <!--<attach>true</attach>-->
-        <!--</configuration>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<phase>compile</phase>-->
-            <!--<goals>-->
-              <!--<goal>jar</goal>-->
-            <!--</goals>-->
-          <!--</execution>-->
-        <!--</executions>-->
+          <!--<groupId>org.apache.maven.plugins</groupId>-->
+          <!--<artifactId>maven-resources-plugin</artifactId>-->
+          <!--<version>2.5</version>-->
+          <!--<configuration>-->
+              <!--<source>1.6</source>-->
+              <!--<target>1.6</target>-->
+              <!--<encoding>UTF-8</encoding>-->
+          <!--</configuration>-->
+          <!--<goals>source</goals>-->
       <!--</plugin>-->
+
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
 
     </plugins>
@@ -71,72 +72,100 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-    <!-- Spring 核心依赖 -->
+    <!--&lt;!&ndash; Spring 核心依赖 &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-core</artifactId>-->
+      <!--<version>${spring.version}</version>-->
+    <!--</dependency>-->
+    <!--&lt;!&ndash; Spring web依赖 &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-web</artifactId>-->
+      <!--<version>${spring.version}</version>-->
+    <!--</dependency>-->
+    <!--&lt;!&ndash; Spring整合ORM框架依赖 &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-orm</artifactId>-->
+      <!--<version>${spring.version}</version>-->
+    <!--</dependency>-->
+    <!--&lt;!&ndash; Struts2 核心依赖 &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.apache.struts</groupId>-->
+      <!--<artifactId>struts2-core</artifactId>-->
+      <!--<version>${struts.version}</version>-->
+    <!--</dependency>-->
+
+    <!--&lt;!&ndash; Struts2和Spring整合依赖 &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.apache.struts</groupId>-->
+      <!--<artifactId>struts2-spring-plugin</artifactId>-->
+      <!--<version>${struts.version}</version>-->
+    <!--</dependency>-->
+
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
+      <artifactId>spring-webmvc</artifactId>
+      <version>3.2.8.RELEASE</version>
     </dependency>
-    <!-- Spring web依赖 -->
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <!-- Spring整合ORM框架依赖 -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <!-- Struts2 核心依赖 -->
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-core</artifactId>
-      <version>${struts.version}</version>
-    </dependency>
-    <!-- Struts2和Spring整合依赖 -->
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-spring-plugin</artifactId>
-      <version>${struts.version}</version>
+      <artifactId>spring</artifactId>
+      <version>2.5.6</version>
     </dependency>
 
     <dependency>
-      <groupId>com.wondersgroup.others</groupId>
-      <artifactId>oracle-jdbc</artifactId>
-      <version>1.4-10.2.0.1</version>
+      <groupId>com.oracle.jdbc</groupId>
+      <artifactId>ojdbc14</artifactId>
+      <version>10.2.0.2.0</version>
     </dependency>
 
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>jms</artifactId>
-          <groupId>javax.jms</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>mail</artifactId>
-          <groupId>javax.mail</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jmxri</artifactId>
-          <groupId>com.sun.jmx</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jmxtools</artifactId>
-          <groupId>com.sun.jdmk</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.apache.logging.log4j</groupId>-->
+      <!--<artifactId>log4j-1.2-api</artifactId>-->
+      <!--<version>2.8.2</version>-->
+    <!--</dependency>-->
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.5</version>
+      </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <version>3.4.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
     </dependency>
 
   </dependencies>
