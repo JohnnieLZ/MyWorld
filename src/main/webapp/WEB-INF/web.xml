@@ -17,10 +17,10 @@
         <!--<param-value>/WEB-INF/classes/log4j.properties</param-value>-->
     </context-param>
 
-    <!-- 设定刷新日志配置文件的时间间隔，这里设置为10s -->
+    <!-- 设定刷新日志配置文件的时间间隔，这里设置为1s -->
     <context-param>
         <param-name>log4jRefreshInterval</param-name>
-        <param-value>10000</param-value>
+        <param-value>1000</param-value>
     </context-param>
 
     <!-- 为避免项目间冲突，定义唯一的 webAppRootKey -->
@@ -37,6 +37,7 @@
     <!-- 加载Spring框架中的log4j监听器Log4jConfigListener -->
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+        <!--<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>-->
     </listener>
 
     <!-- 配置SpringMVC 访问请求代理-->
@@ -45,10 +46,10 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-servlet.xml</param-value>
-            <!--<param-value>/WEB-INF/classes/spring-servlet.xml</param-value>-->
+            <param-value>classpath:spring-mvc.xml</param-value>
+            <!--<param-value>/WEB-INF/classes/spring-mvc.xml</param-value>-->
         </init-param>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>1</load-on-startup> <!--设为1时，Web容器启动即进行加载-->
     </servlet>
 
     <!-- 需代理的请求地址后缀 -->

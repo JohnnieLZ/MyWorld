@@ -1,42 +1,34 @@
-package utils;
+package com.johnnieliu.utils;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-
+@Component
 public class FileUtils {
 
-
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    {
-        jdbcTemplate = new JdbcTemplate();
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl("jdbc:oracle:thin:@172.16.21.22:1521:orcl");
-        basicDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-        basicDataSource.setUsername("dbbx");
-        basicDataSource.setPassword("dbbxdb");
-        jdbcTemplate.setDataSource(basicDataSource);
-    }
     public static void main(String[] args) {
         FileUtils utils = new FileUtils();
         System.out.println("--------------开始----------------");
-//        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/Temp/BUSI_FUND_DEFRAY.txt");
-//        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt");
-//        utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt");
+//        com.johnnieliu.utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/TempFiles/BUSI_FUND_DEFRAY.txt", "/Users/johnnie/Documents/Temp/BUSI_FUND_DEFRAY.txt");
+//        com.johnnieliu.utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/TempFiles/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt");
+//        com.johnnieliu.utils.comparisonFile("/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/TempFiles/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt");
 
 //        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 //        Date date = new Date();
 //        String hcclrq = format.format(date).toString();
 //        System.out.println(hcclrq);
-//        utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "2017-11-29");
-//        utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt", "2017-11-29");
-//        utils.deleteFileRepeatData("/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/deleteData.txt", "/Users/johnnie/Documents/BUSI_HOSP_CHARGE.txt");
+//        com.johnnieliu.utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "2017-11-29");
+//        com.johnnieliu.utils.outputDifferenceDate("/Users/johnnie/Documents/TempFile/BUSI_RECIPE_DETAIL.txt", "/Users/johnnie/Documents/Temp/BUSI_RECIPE_DETAIL.txt", "2017-11-29");
+//        com.johnnieliu.utils.deleteFileRepeatData("/Users/johnnie/Documents/Temp/BUSI_HOSP_CHARGE.txt", "/Users/johnnie/Documents/Temp/deleteData.txt", "/Users/johnnie/Documents/BUSI_HOSP_CHARGE.txt");
         utils.addDataFromReadFile("/Users/johnnie/Documents/Temp/门诊细项.sql","/Users/johnnie/Documents/TempFiles/门诊细项.sql");
         utils.addDataFromReadFile("/Users/johnnie/Documents/Temp/住院细线.sql","/Users/johnnie/Documents/TempFiles/住院细线.sql");
         System.out.println("--------------结束----------------");
@@ -297,14 +289,5 @@ public class FileUtils {
                 }
             }
         }
-    }
-
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
     }
 }
