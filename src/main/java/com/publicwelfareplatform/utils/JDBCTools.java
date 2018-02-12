@@ -1,4 +1,4 @@
-package com.johnnieliu.utils;
+package com.publicwelfareplatform.utils;
 
 import java.io.InputStream;
 import java.sql.Connection;
