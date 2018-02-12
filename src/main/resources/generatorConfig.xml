@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry location="/Users/johnnie/.m2/repository/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar" /> 
+    <!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+         <!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.16.21.22:1521:orcl" userId="dbbx" password="dbbxdb">  -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/pwp?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;nullNamePatternMatchesAll=true" userId="johnnie" password="951128">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成实体类的包名和位置，这里配置将生成的实体类放在entity这个包下 targetPackage是生成之后类在项目中的位置一般是com.xxx.xxx targetProject是项目所在硬盘的路径-->
+        <javaModelGenerator targetPackage="com.publicwelfareplatform.model.entity" targetProject="/Users/johnnie/IdeaProjects/PublicWelfarePlatform/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成的SQL映射文件包名和位置，这里配置将生成的SQL映射文件放在mappers这个包下 -->
+        <sqlMapGenerator targetPackage="com.publicwelfareplatform.mappers" targetProject="/Users/johnnie/IdeaProjects/PublicWelfarePlatform/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置，这里配置将生成的dao类放在dao这个包下 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.publicwelfareplatform.dao" targetProject="/Users/johnnie/IdeaProjects/PublicWelfarePlatform/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <table tableName="TB_USERS" domainObjectName="TB_USERS" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <!--<table tableName="TB_USERS"/>-->
+    </context>
+</generatorConfiguration>
