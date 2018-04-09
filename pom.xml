@@ -36,6 +36,12 @@
                 </configuration>
             </plugin>
 
+            <!-- mybatis通过generator插件生成数据库表的Mapper映射XML文件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.0</version>
+            </plugin>
 
             <!--<plugin>-->
             <!--<groupId>org.apache.maven.plugins</groupId>-->

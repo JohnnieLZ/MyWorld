@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="PublicWelfarePlatform:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="PublicWelfarePlatform.war">
+      <element id="artifact" artifact-name="PublicWelfarePlatform:war exploded" />
+    </root>
+  </artifact>
+</component>
